@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Explore thousands of developer portfolios in a visual, searchable gallery."
+    />
+    <meta name="theme-color" content="#07090c" />
+    <meta property="og:title" content="DevFolio Gallery" />
+    <meta
+      property="og:description"
+      content="A curated visual directory of developer portfolios."
+    />
+    <title>DevFolio Gallery — Developer Portfolio Inspiration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://s.wordpress.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Inter:wght@400;500;600&amp;family=Manrope:wght@500;600;700;800&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#gallery">Skip to portfolio gallery</a>
+
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="brand" href="#top" aria-label="DevFolio Gallery home">
+          <span class="brand-mark" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+          </span>
+          <span>DevFolio<span class="brand-muted">/Gallery</span></span>
+        </a>
+        <nav class="header-actions" aria-label="Primary navigation">
+          <a class="nav-link" href="#gallery">Explore</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero shell" aria-labelledby="hero-title">
+        <div class="hero-rule" aria-hidden="true">
+          <span>Curated portfolio index</span>
+          <span>Curated for creative research</span>
+        </div>
+
+        <div class="hero-layout">
+          <div class="hero-content">
+            <p class="hero-label">For developers, designers, and curious minds</p>
+            <h1 id="hero-title">
+              Find the work that changes how you present <em>your own.</em>
+            </h1>
+
+            <div class="hero-intro">
+              <p class="hero-copy">
+                Real portfolio sites arranged for visual research. Search by specialty,
+                compare presentation styles, and save the work that inspires you.
+              </p>
+              <div class="hero-actions">
+                <a class="button hero-primary" href="#gallery">
+                  Browse the directory
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                </a>
+                <button class="hero-random" id="surpriseButton" type="button">
+                  Show me something unexpected
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <figure class="hero-art">
+            <img
+              src="assets/which-portfolio-to-choose-v2.png"
+              width="1254"
+              height="1254"
+              alt="Illustration of a person deciding which portfolio to explore"
+              decoding="async"
+              fetchpriority="high"
+            />
+            <figcaption>
+              <span>One open directory.</span>
+              Thousands of ways to present your work.
+            </figcaption>
+          </figure>
+        </div>
+
+      </section>
+
+      <section class="gallery-section" id="gallery" aria-labelledby="gallery-title">
+        <div class="shell">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">The directory</p>
+              <h2 id="gallery-title">Explore the collection</h2>
+            </div>
+            <p id="resultCount" class="result-count" aria-live="polite">Loading portfolios…</p>
+          </div>
+
+          <div class="directory-controls">
+          <div class="toolbar">
+            <label class="search-field" for="searchInput">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+              <span class="sr-only">Search portfolios</span>
+              <input id="searchInput" type="search" placeholder="Search by name, role, or specialty…" autocomplete="off" />
+              <kbd>/</kbd>
+            </label>
+            <label class="category-field">
+              <span class="sr-only">Filter portfolios by category</span>
+              <select id="categorySelect">
+                <option value="all">All categories</option>
+                <option value="frontend">Frontend</option>
+                <option value="fullstack">Full stack</option>
+                <option value="backend">Backend &amp; cloud</option>
+                <option value="mobile">Mobile</option>
+                <option value="design">Design</option>
+                <option value="ai">AI &amp; data</option>
+                <option value="saved" id="savedOption">Saved (0)</option>
+              </select>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 10 4 4 4-4"/></svg>
+            </label>
+            <label class="sort-field">
+              <span class="sr-only">Sort portfolios</span>
+              <select id="sortSelect">
+                <option value="featured">Featured</option>
+                <option value="az">Name: A–Z</option>
+                <option value="za">Name: Z–A</option>
+                <option value="random">Shuffle</option>
+              </select>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 10 4 4 4-4"/></svg>
+            </label>
+          </div>
+          </div>
+
+          <div class="portfolio-grid" id="portfolioGrid" aria-busy="true">
+            <div class="skeleton-card"></div><div class="skeleton-card"></div><div class="skeleton-card"></div>
+          </div>
+
+          <div class="empty-state" id="emptyState" hidden>
+            <span class="empty-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+            </span>
+            <h3>No portfolios found</h3>
+            <p>Try a different search or clear the active filters.</p>
+            <button class="button button-quiet" id="clearButton" type="button">Clear filters</button>
+          </div>
+
+          <div class="load-more-wrap">
+            <button class="button button-load" id="loadMoreButton" type="button" hidden>
+              Load more portfolios
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell footer-inner">
+        <div>
+          <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span><span>DevFolio<span class="brand-muted">/Gallery</span></span></a>
+          <p>A focused visual directory for studying how developers present their work.</p>
+        </div>
+        <div class="footer-links">
+          <a href="https://wordpress.com/plugins/browser-shots" target="_blank" rel="noopener noreferrer">Preview service</a>
+          <a href="#top">Back to top ↑</a>
+        </div>
+      </div>
+    </footer>
+
+    <noscript><p class="noscript">JavaScript is required to load and filter the portfolio directory.</p></noscript>
+  </body>
+</html>
